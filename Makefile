@@ -8,7 +8,7 @@ H_FILES := include/include.h
 # .c files
 vpath %.c src/
 
-SRC_FILES := main.c
+SRC_FILES := init.c main.c number_utils.c print_philo.c str_utils.c
 
 # Normal .o files
 OBJ_DIR := obj
