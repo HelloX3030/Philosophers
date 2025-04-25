@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 14:40:32 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/25 14:41:32 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/25 16:18:16 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_philo(t_philo *philo)
 {
-	ft_putstr("Number of Philosophers: ");
+	ft_putstr("Philosophers: ");
 	ft_putnbr_fd(philo->number_philos, STDOUT_FILENO);
 	ft_putstr("\nTime to Die: ");
 	ft_putnbr_fd(philo->time_to_die, STDOUT_FILENO);

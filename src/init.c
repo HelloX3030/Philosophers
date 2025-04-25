@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:58:30 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/25 16:14:45 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/25 16:20:44 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@ static int	check_limits(t_philo *philo)
 {
 	if (philo->number_philos < 1 || philo->number_philos > 200)
 	{
-		ft_putstr_err("Error: number_of_philos must be between 1 and 200\n");
+		ft_putstr_err("Error: number_of_philos must be between 0 and 200\n");
 		return (EXIT_FAILURE);
 	}
-	if (philo->time_to_die < 0)
+	if (philo->time_to_die < 60)
 	{
-		ft_putstr_err("Error: time_to_die must be >= 0\n");
+		ft_putstr_err("Error: time_to_die must be >= 60\n");
 		return (EXIT_FAILURE);
 	}
-	if (philo->time_to_eat < 0)
+	if (philo->time_to_eat < 60)
 	{
-		ft_putstr_err("Error: time_to_eat must be >= 0\n");
+		ft_putstr_err("Error: time_to_eat must be >= 60\n");
 		return (EXIT_FAILURE);
 	}
-	if (philo->time_to_sleep < 0)
+	if (philo->time_to_sleep < 60)
 	{
-		ft_putstr_err("Error: time_to_sleep must be >= 0\n");
+		ft_putstr_err("Error: time_to_sleep must be >= 60\n");
 		return (EXIT_FAILURE);
 	}
-	if (philo->number_of_meals != -1 && philo->number_of_meals < 0)
-		return (ft_putstr_err("Error: number_of_meals must be >= 0\n"),
+	if (philo->number_of_meals != -1 && philo->number_of_meals < 60)
+		return (ft_putstr_err("Error: number_of_meals must be >= 60\n"),
 			EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
