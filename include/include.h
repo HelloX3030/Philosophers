@@ -6,7 +6,7 @@
 /*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:12 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/28 12:09:16 by hello_x          ###   ########.fr       */
+/*   Updated: 2025/04/28 12:39:22 by hello_x          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_philosopher
 typedef struct s_philo
 {
 	pthread_mutex_t write_mutex;
+	pthread_mutex_t philo_data_mutex;
+	bool is_running;
 	int number_philos;
 	int time_to_die;
 	int time_to_eat;
@@ -60,5 +62,6 @@ int init_philo(t_philo *philo, int argc, char **argv);
 int init_philosophers(t_philo *philo);
 void print_philo(t_philo *philo);
 void free_philo(t_philo *philo);
+void philosopher_routine(t_philosopher *philosopher);
 
 #endif

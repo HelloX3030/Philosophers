@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:58:30 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/25 16:20:44 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/28 12:40:24 by hello_x          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int init_philo(t_philo *philo, int argc, char **argv)
 		ft_putstr_err("<time_to_eat> <time_to_sleep> [number_of_meals]\n");
 		return (EXIT_FAILURE);
 	}
+	philo->is_running = true;
 	if (init_values(philo, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (argc == 6)
