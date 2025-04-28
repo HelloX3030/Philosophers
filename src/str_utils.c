@@ -12,9 +12,9 @@
 
 #include "include.h"
 
-void	ft_putstr(char *str)
+void ft_putstr(char *str)
 {
-	int_least64_t	len;
+	int len;
 
 	len = 0;
 	while (str[len])
@@ -22,9 +22,9 @@ void	ft_putstr(char *str)
 	write(STDOUT_FILENO, str, len);
 }
 
-void	ft_putstr_err(char *str)
+void ft_putstr_err(char *str)
 {
-	int	len;
+	int len;
 
 	len = 0;
 	while (str[len])

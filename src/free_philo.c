@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/25 13:38:46 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/28 12:08:05 by hello_x          ###   ########.fr       */
+/*   Created: 2025/04/28 12:09:03 by hello_x           #+#    #+#             */
+/*   Updated: 2025/04/28 12:09:41 by hello_x          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 
-int	main(int argc, char **argv)
+void free_philo(t_philo *philo)
 {
-	t_philo	philo;
-
-	if (init_philo(&philo, argc, argv) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (init_philosophers(&philo) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	// run philosophers
-	print_philo(&philo);
-	return (EXIT_SUCCESS);
+	free(philo->philosophers);
+	philo->philosophers = NULL;
+	pthread_mutex_destroy(&philo->write_mutex);
 }
