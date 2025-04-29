@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:46 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/28 13:04:38 by hello_x          ###   ########.fr       */
+/*   Updated: 2025/04/29 14:06:31 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	int i;
+	int		i;
 	t_philo	philo;
 
 	if (init_philo(&philo, argc, argv) == EXIT_FAILURE)

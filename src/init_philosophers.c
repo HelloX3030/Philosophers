@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init_philosophers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:50:14 by hello_x           #+#    #+#             */
-/*   Updated: 2025/04/28 13:01:56 by hello_x          ###   ########.fr       */
+/*   Updated: 2025/04/29 14:06:29 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 
-static int init_philosopher(t_philo *philo)
+static int	init_philosopher(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	philo->philosophers = malloc(sizeof(t_philosopher) * philo->number_philos);
 	if (!philo->philosophers)
@@ -31,14 +31,15 @@ static int init_philosopher(t_philo *philo)
 	return (EXIT_SUCCESS);
 }
 
-static int create_threads(t_philo *philo)
+static int	create_threads(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < philo->number_philos)
 	{
-		if (pthread_create(&philo->philosophers[i].thread, NULL, (void *)philosopher_routine, philo->philosophers + i) != 0)
+		if (pthread_create(&philo->philosophers[i].thread, NULL,
+				(void *)philosopher_routine, philo->philosophers + i) != 0)
 		{
 			pthread_mutex_lock(&philo->philo_data_mutex);
 			philo->is_running = false;
@@ -55,7 +56,7 @@ static int create_threads(t_philo *philo)
 	return (EXIT_SUCCESS);
 }
 
-int init_philosophers(t_philo *philo)
+int	init_philosophers(t_philo *philo)
 {
 	if (pthread_mutex_init(&philo->write_mutex, NULL) != 0)
 		return (EXIT_FAILURE);

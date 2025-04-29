@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:58:30 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/28 12:40:24 by hello_x          ###   ########.fr       */
+/*   Updated: 2025/04/29 14:06:27 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 
-static int check_limits(t_philo *philo)
+static int	check_limits(t_philo *philo)
 {
 	if (philo->number_philos < 1 || philo->number_philos > 200)
 	{
@@ -36,11 +36,11 @@ static int check_limits(t_philo *philo)
 	}
 	if (philo->number_of_meals != -1 && philo->number_of_meals < 60)
 		return (ft_putstr_err("Error: number_of_meals must be >= 60\n"),
-				EXIT_FAILURE);
+			EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-static int init_values(t_philo *philo, char **argv)
+static int	init_values(t_philo *philo, char **argv)
 {
 	if (!ft_aisi(argv[1]))
 	{
@@ -69,7 +69,7 @@ static int init_values(t_philo *philo, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-int init_philo(t_philo *philo, int argc, char **argv)
+int	init_philo(t_philo *philo, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 	{
@@ -90,7 +90,7 @@ int init_philo(t_philo *philo, int argc, char **argv)
 		philo->number_of_meals = ft_atoi(argv[5]);
 		if (philo->number_of_meals < 0)
 			return (ft_putstr_err("Error: number_of_meals must be >= 0\n"),
-					EXIT_FAILURE);
+				EXIT_FAILURE);
 	}
 	else
 		philo->number_of_meals = -1;

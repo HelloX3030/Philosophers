@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_philo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 14:40:32 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/28 12:40:41 by hello_x          ###   ########.fr       */
+/*   Updated: 2025/04/29 14:06:37 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 
-static void print_philosopher(t_philosopher *philosopher)
+static void	print_philosopher(t_philosopher *philosopher)
 {
 	ft_putstr("Philosopher ");
 	ft_putnbr_fd(philosopher->id, STDOUT_FILENO);
@@ -24,9 +24,11 @@ static void print_philosopher(t_philosopher *philosopher)
 	ft_putstr("\n");
 }
 
-static void print_philosophers(t_philo *philo)
+static void	print_philosophers(t_philo *philo)
 {
-	int i = 0; 
+	int	i;
+
+	i = 0;
 	while (i < philo->number_philos)
 	{
 		print_philosopher(philo->philosophers + i);
