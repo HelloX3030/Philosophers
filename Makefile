@@ -8,7 +8,7 @@ H_FILES := include/include.h
 # .c files
 vpath %.c src/
 
-SRC_FILES := free_philo.c init_philo.c init_philosophers.c main.c number_utils.c philosopher_routine.c print_philo.c str_utils.c
+SRC_FILES := free_philo.c init_philo.c init_philosophers.c main.c number_utils.c philosopher_routine.c print_philo.c str_utils.c wait.c
 
 # Normal .o files
 OBJ_DIR := obj

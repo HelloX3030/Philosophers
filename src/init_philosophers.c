@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:50:14 by hello_x           #+#    #+#             */
-/*   Updated: 2025/04/29 14:06:29 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/29 14:59:29 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	init_philosophers(t_philo *philo)
 		pthread_mutex_destroy(&philo->philo_data_mutex);
 		return (EXIT_FAILURE);
 	}
+	gettimeofday(&philo->start_time, NULL);
 	if (create_threads(philo) != EXIT_SUCCESS)
 		return (free_philo(philo), EXIT_FAILURE);
 	return (EXIT_SUCCESS);

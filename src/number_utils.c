@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 14:05:29 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/29 14:06:33 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/29 15:05:24 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,27 +79,6 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (num * sign);
-}
-
-void	ft_putnbr_fd(int n, int fd)
-{
-	if (n == INT_MIN)
-	{
-		write(fd, "-2147483648", 11);
-		return ;
-	}
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		n *= -1;
-	}
-	if (n <= 9)
-		write(fd, &"0123456789"[n], 1);
-	else
-	{
-		ft_putnbr_fd(n / 10, fd);
-		write(fd, &"0123456789"[n % 10], 1);
-	}
 }
 
 int	ft_isdigit(int c)
