@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:27:37 by hello_x           #+#    #+#             */
-/*   Updated: 2025/04/30 15:29:01 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/30 15:59:07 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	think_until_fork(t_philosopher *philosopher, t_fork *fork)
 		think_before_take_fork(philosopher);
 		while (1)
 		{
-			usleep(WAIT_INTERVALL);
+			usleep(WAIT_INTERVALL * 1000);
 			pthread_mutex_lock(&fork->mutex);
 			if (!fork->is_taken)
 				break ;

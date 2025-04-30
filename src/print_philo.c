@@ -6,35 +6,35 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 14:40:32 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/29 14:06:37 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/30 16:04:46 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 
-static void	print_philosopher(t_philosopher *philosopher)
-{
-	ft_putstr("Philosopher ");
-	ft_putnbr_fd(philosopher->id, STDOUT_FILENO);
-	ft_putstr(":\n");
-	ft_putstr("\tNumber of Meals: ");
-	ft_putnbr_fd(philosopher->number_of_meals, STDOUT_FILENO);
-	ft_putstr("\n\tLast Meal Time: ");
-	ft_putnbr_fd(philosopher->last_meal_time, STDOUT_FILENO);
-	ft_putstr("\n");
-}
+// static void	print_philosopher(t_philosopher *philosopher)
+// {
+// 	ft_putstr("Philosopher ");
+// 	ft_putnbr_fd(philosopher->id, STDOUT_FILENO);
+// 	ft_putstr(":\n");
+// 	ft_putstr("\tNumber of Meals: ");
+// 	ft_putnbr_fd(philosopher->number_of_meals, STDOUT_FILENO);
+// 	ft_putstr("\n\tLast Meal Time: ");
+// 	ft_putnbr_fd(philosopher->last_meal_time, STDOUT_FILENO);
+// 	ft_putstr("\n");
+// }
 
-static void	print_philosophers(t_philo *philo)
-{
-	int	i;
+// static void	print_philosophers(t_philo *philo)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < philo->number_philos)
-	{
-		print_philosopher(philo->philosophers + i);
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < philo->number_philos)
+// 	{
+// 		print_philosopher(philo->philosophers + i);
+// 		i++;
+// 	}
+// }
 
 void	print_philo(t_philo *philo)
 {
@@ -52,5 +52,6 @@ void	print_philo(t_philo *philo)
 		ft_putnbr_fd(philo->number_of_meals, STDOUT_FILENO);
 	}
 	ft_putstr("\n========================\n");
-	print_philosophers(philo);
 }
+
+// print_philosophers(philo);
