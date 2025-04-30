@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:33:03 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/29 15:32:47 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/30 14:42:41 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ void	philosopher_wait(t_philosopher *philosopher, int time)
 		else
 			usleep(WAIT_INTERVALL);
 		time_waited += WAIT_INTERVALL;
-		if (philosopher_finished(philosopher))
+		pthread_mutex_lock(&philosopher->philo->is_running_mutex);
+		if (philosopher->philo->is_running == false)
+		{
+			pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
 			break ;
+		}
+		pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
 	}
 }
 

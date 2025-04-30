@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:09:03 by hello_x           #+#    #+#             */
-/*   Updated: 2025/04/29 14:06:25 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/30 15:03:39 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 void	free_philo(t_philo *philo)
 {
+	int	i;
+
+	i = 0;
 	free(philo->philosophers);
+	while (i < philo->number_philos)
+		pthread_mutex_destroy(&philo->forks[i++].mutex);
+	free(philo->forks);
 	pthread_mutex_destroy(&philo->write_mutex);
-	pthread_mutex_destroy(&philo->philo_data_mutex);
+	pthread_mutex_destroy(&philo->is_running_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:12 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/29 15:36:33 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/30 15:00:58 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,28 @@ void					ft_putnbr_long_long_fd(long long n, int fd);
 // Philosopher Struct
 typedef struct s_philo	t_philo;
 
+typedef struct s_fork
+{
+	pthread_mutex_t		mutex;
+	bool				is_taken;
+}						t_fork;
+
 typedef struct s_philosopher
 {
 	t_philo				*philo;
 	int					id;
 	int					number_of_meals;
 	long long			last_meal_time;
-
-	// thread stuff
 	pthread_t			thread;
+	t_fork				*left_fork;
+	t_fork				*right_fork;
 }						t_philosopher;
 
 typedef struct s_philo
 {
 	struct timeval		start_time;
 	pthread_mutex_t		write_mutex;
-	pthread_mutex_t		philo_data_mutex;
+	pthread_mutex_t		is_running_mutex;
 	bool				is_running;
 	int					number_philos;
 	int					time_to_die;
@@ -60,6 +66,7 @@ typedef struct s_philo
 	int					time_to_sleep;
 	int					number_of_meals;
 	t_philosopher		*philosophers;
+	t_fork				*forks;
 }						t_philo;
 
 int						init_philo(t_philo *philo, int argc, char **argv);
@@ -70,5 +77,9 @@ bool					philosopher_finished(t_philosopher *philosopher);
 void					philosopher_wait(t_philosopher *philosopher, int time);
 void					philosopher_routine(t_philosopher *philosopher);
 long long				get_elapsed_time(struct timeval *start_time);
+
+// Philosopher Routine Utils
+void					take_fork(t_philosopher *philosopher, t_fork *fork);
+void					think_before_take_fork(t_philosopher *philosopher);
 
 #endif

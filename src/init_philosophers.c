@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:50:14 by hello_x           #+#    #+#             */
-/*   Updated: 2025/04/29 14:59:29 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/30 14:08:20 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ static int	init_philosopher(t_philo *philo)
 		philo->philosophers[i].id = i + 1;
 		philo->philosophers[i].number_of_meals = 0;
 		philo->philosophers[i].last_meal_time = 0;
+		philo->philosophers[i].left_fork = &philo->forks[i];
+		if (i == philo->number_philos - 1)
+			philo->philosophers[i].right_fork = &philo->forks[0];
+		else
+			philo->philosophers[i].right_fork = &philo->forks[i + 1];
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -41,10 +46,10 @@ static int	create_threads(t_philo *philo)
 		if (pthread_create(&philo->philosophers[i].thread, NULL,
 				(void *)philosopher_routine, philo->philosophers + i) != 0)
 		{
-			pthread_mutex_lock(&philo->philo_data_mutex);
+			pthread_mutex_lock(&philo->is_running_mutex);
 			philo->is_running = false;
-			pthread_mutex_unlock(&philo->philo_data_mutex);
-			while (i >= 0)
+			pthread_mutex_unlock(&philo->is_running_mutex);
+			while (i > 0)
 			{
 				pthread_join(philo->philosophers[i - 1].thread, NULL);
 				i--;
@@ -56,16 +61,48 @@ static int	create_threads(t_philo *philo)
 	return (EXIT_SUCCESS);
 }
 
+static int	init_forks(t_philo *philo)
+{
+	int	i;
+
+	philo->forks = malloc(sizeof(t_fork) * philo->number_philos);
+	if (!philo->forks)
+		return (EXIT_FAILURE);
+	i = 0;
+	while (i < philo->number_philos)
+	{
+		if (pthread_mutex_init(&philo->forks[i].mutex, NULL) != 0)
+		{
+			while (i > 0)
+			{
+				pthread_mutex_destroy(&philo->forks[i - 1].mutex);
+				i--;
+			}
+			free(philo->forks);
+			return (EXIT_FAILURE);
+		}
+		philo->forks[i].is_taken = false;
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	init_philosophers(t_philo *philo)
 {
 	if (pthread_mutex_init(&philo->write_mutex, NULL) != 0)
 		return (EXIT_FAILURE);
-	if (pthread_mutex_init(&philo->philo_data_mutex, NULL) != 0)
+	if (pthread_mutex_init(&philo->is_running_mutex, NULL) != 0)
 		return (EXIT_FAILURE);
+	if (init_forks(philo) != EXIT_SUCCESS)
+	{
+		pthread_mutex_destroy(&philo->write_mutex);
+		pthread_mutex_destroy(&philo->is_running_mutex);
+		return (EXIT_FAILURE);
+	}
 	if (init_philosopher(philo) != EXIT_SUCCESS)
 	{
 		pthread_mutex_destroy(&philo->write_mutex);
-		pthread_mutex_destroy(&philo->philo_data_mutex);
+		pthread_mutex_destroy(&philo->is_running_mutex);
 		return (EXIT_FAILURE);
 	}
 	gettimeofday(&philo->start_time, NULL);
