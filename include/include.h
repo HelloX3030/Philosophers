@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:12 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/30 15:00:58 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/30 15:27:58 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ long long				get_elapsed_time(struct timeval *start_time);
 // Philosopher Routine Utils
 void					take_fork(t_philosopher *philosopher, t_fork *fork);
 void					think_before_take_fork(t_philosopher *philosopher);
+void					release_fork(t_fork *fork);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:59:51 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/30 15:01:13 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/30 15:27:36 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,11 @@ void	think_before_take_fork(t_philosopher *philosopher)
 	ft_putstr(" is thinking\n");
 	pthread_mutex_unlock(&philosopher->philo->write_mutex);
 	pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
+}
+
+void	release_fork(t_fork *fork)
+{
+	pthread_mutex_lock(&fork->mutex);
+	fork->is_taken = false;
+	pthread_mutex_unlock(&fork->mutex);
 }

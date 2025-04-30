@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:27:37 by hello_x           #+#    #+#             */
-/*   Updated: 2025/04/30 15:14:43 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/30 15:29:01 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ static void	philosopher_eat(t_philosopher *philosopher)
 	pthread_mutex_unlock(&philosopher->philo->write_mutex);
 	pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
 	philosopher_wait(philosopher, philosopher->philo->time_to_eat);
+	release_fork(philosopher->left_fork);
+	release_fork(philosopher->right_fork);
+	philosopher->number_of_meals++;
 }
 
 static void	philosopher_sleep(t_philosopher *philosopher)

@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:58:30 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/29 14:06:27 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/04/30 15:32:37 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static int	check_limits(t_philo *philo)
 		ft_putstr_err("Error: time_to_sleep must be >= 60\n");
 		return (EXIT_FAILURE);
 	}
-	if (philo->number_of_meals != -1 && philo->number_of_meals < 60)
-		return (ft_putstr_err("Error: number_of_meals must be >= 60\n"),
+	if (philo->number_of_meals != -1 && philo->number_of_meals < 0)
+		return (ft_putstr_err("Error: number_of_meals must be >= 0\n"),
 			EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -88,8 +88,8 @@ int	init_philo(t_philo *philo, int argc, char **argv)
 			return (EXIT_FAILURE);
 		}
 		philo->number_of_meals = ft_atoi(argv[5]);
-		if (philo->number_of_meals < 0)
-			return (ft_putstr_err("Error: number_of_meals must be >= 0\n"),
+		if (philo->number_of_meals == -1)
+			return (ft_putstr_err("Error: number_of_meals must be > 0\n"),
 				EXIT_FAILURE);
 	}
 	else
