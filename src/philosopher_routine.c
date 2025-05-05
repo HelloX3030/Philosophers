@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:27:37 by hello_x           #+#    #+#             */
-/*   Updated: 2025/04/30 15:59:07 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/05 11:59:11 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,16 @@ static void	philosopher_eat(t_philosopher *philosopher)
 	release_fork(philosopher->left_fork);
 	release_fork(philosopher->right_fork);
 	philosopher->number_of_meals++;
+	if (philosopher->philo->number_of_meals != -1
+		&& philosopher->number_of_meals >= philosopher->philo->number_of_meals)
+	{
+		pthread_mutex_lock(&philosopher->philo->is_running_mutex);
+		philosopher->philo->is_running = false;
+		pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
+	}
+	pthread_mutex_lock(&philosopher->last_meal_time_mutex);
+	gettimeofday(&philosopher->last_meal_time, NULL);
+	pthread_mutex_unlock(&philosopher->last_meal_time_mutex);
 }
 
 static void	philosopher_sleep(t_philosopher *philosopher)

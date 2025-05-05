@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:33:03 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/30 15:59:44 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/05 11:04:24 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,10 @@ long long	get_elapsed_time(struct timeval *start_time)
 	elapsed_time = (current_time.tv_sec - start_time->tv_sec) * 1000;
 	elapsed_time += (current_time.tv_usec - start_time->tv_usec) / 1000;
 	return (elapsed_time);
+}
+
+long long	get_time_diff(struct timeval *start_time, struct timeval *end_time)
+{
+	return ((end_time->tv_sec - start_time->tv_sec) * 1000 + (end_time->tv_usec
+			- start_time->tv_usec) / 1000);
 }

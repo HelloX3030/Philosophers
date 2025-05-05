@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:46 by lseeger           #+#    #+#             */
-/*   Updated: 2025/04/30 15:59:35 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/05 11:25:02 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (init_philosophers(&philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	pthread_join(philo.monitoring_thread, NULL);
 	i = 0;
 	while (i < philo.number_philos)
 		pthread_join(philo.philosophers[i++].thread, NULL);
