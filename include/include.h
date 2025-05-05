@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:12 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/05 11:23:08 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/05 14:57:58 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_philosopher
 	int					id;
 	int					number_of_meals;
 	pthread_mutex_t		last_meal_time_mutex;
-	struct timeval		last_meal_time;
+	struct timeval		last_meal;
 	pthread_t			thread;
 	t_fork				*left_fork;
 	t_fork				*right_fork;
@@ -81,11 +81,12 @@ void					philosopher_routine(t_philosopher *philosopher);
 long long				get_elapsed_time(struct timeval *start_time);
 long long				get_time_diff(struct timeval *start_time,
 							struct timeval *end_time);
+void					monitoring(t_philo *philo);
 
 // Philosopher Routine Utils
 void					take_fork(t_philosopher *philosopher, t_fork *fork);
 void					think_before_take_fork(t_philosopher *philosopher);
 void					release_fork(t_fork *fork);
-void					monitoring(t_philo *philo);
+void					no_fork_found(t_philosopher *philosopher);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:50:14 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/05 11:34:42 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/05 14:58:06 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ static int	init_philosopher(t_philo *philo)
 		philo->philosophers[i].philo = philo;
 		philo->philosophers[i].id = i + 1;
 		philo->philosophers[i].number_of_meals = 0;
-		philo->philosophers[i].last_meal_time = philo->start_time;
+		philo->philosophers[i].last_meal = philo->start_time;
 		philo->philosophers[i].left_fork = &philo->forks[i];
 		if (i == philo->number_philos - 1)
 			philo->philosophers[i].right_fork = &philo->forks[0];
-		else
+		else if (philo->number_philos > 1)
 			philo->philosophers[i].right_fork = &philo->forks[i + 1];
+		else
+			philo->philosophers[i].right_fork = NULL;
 		i++;
 	}
 	return (EXIT_SUCCESS);
