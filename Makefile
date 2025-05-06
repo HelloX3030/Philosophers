@@ -1,5 +1,5 @@
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -g
 NAME := philo
 
 # .h files
@@ -8,7 +8,7 @@ H_FILES := include/include.h
 # .c files
 vpath %.c src/
 
-SRC_FILES := free_philo.c init_philo.c init_philosophers.c main.c monitoring.c number_utils.c philosopher_routine.c philosopher_routine_utils.c print_philo.c str_utils.c wait.c
+SRC_FILES := free_philo.c init_philo.c init_philosophers.c main.c monitoring.c number_utils.c philosopher_routine.c philosopher_routine_utils.c str_utils.c wait.c
 
 # Normal .o files
 OBJ_DIR := obj

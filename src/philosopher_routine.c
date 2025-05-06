@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:27:37 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/05 14:58:23 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:30:38 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void	think_until_fork(t_philosopher *philosopher, t_fork *fork)
 {
-	if (!fork)
-		no_fork_found(philosopher);
 	pthread_mutex_lock(&fork->mutex);
 	if (fork->is_taken)
 	{
@@ -23,7 +21,7 @@ static void	think_until_fork(t_philosopher *philosopher, t_fork *fork)
 		think_before_take_fork(philosopher);
 		while (1)
 		{
-			usleep(WAIT_INTERVALL * 1000);
+			usleep(WAIT_INTERVALL);
 			pthread_mutex_lock(&fork->mutex);
 			if (!fork->is_taken)
 				break ;
@@ -111,9 +109,18 @@ static void	philosopher_sleep(t_philosopher *philosopher)
 
 void	philosopher_routine(t_philosopher *philosopher)
 {
+	if (philosopher->philo->number_philos == 1)
+	{
+		ft_putstr("1 has taken a fork\n");
+		no_fork_found(philosopher);
+		return ;
+	}
+	pthread_mutex_lock(&philosopher->philo->is_running_mutex);
 	while (!philosopher_finished(philosopher))
 	{
+		pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
 		philosopher_eat(philosopher);
 		philosopher_sleep(philosopher);
 	}
+	pthread_mutex_lock(&philosopher->philo->is_running_mutex);
 }

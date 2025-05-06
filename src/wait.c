@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:33:03 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/05 14:19:33 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:15:04 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	philosopher_wait(t_philosopher *philosopher, int time)
 	{
 		remaining_time = time - time_waited;
 		if (remaining_time > 0 && remaining_time < WAIT_INTERVALL)
-			usleep(remaining_time * 1000);
+			usleep(remaining_time);
 		else if (remaining_time > 0)
-			usleep(WAIT_INTERVALL * 1000);
+			usleep(WAIT_INTERVALL);
 		time_waited += WAIT_INTERVALL;
 		pthread_mutex_lock(&philosopher->philo->is_running_mutex);
 		if (philosopher_finished(philosopher))

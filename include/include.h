@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:12 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/05 14:57:58 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:24:41 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define WAIT_INTERVALL 10
+# define WAIT_INTERVALL 1000
 
 // Number Utils
 int						ft_atoi(const char *str);
@@ -73,7 +73,6 @@ typedef struct s_philo
 
 int						init_philo(t_philo *philo, int argc, char **argv);
 int						init_philosophers(t_philo *philo);
-void					print_philo(t_philo *philo);
 void					free_philo(t_philo *philo);
 bool					philosopher_finished(t_philosopher *philosopher);
 void					philosopher_wait(t_philosopher *philosopher, int time);

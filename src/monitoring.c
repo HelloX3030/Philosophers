@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:29:59 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/06 15:43:19 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:14:24 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	monitoring(t_philo *philo)
 
 	while (true)
 	{
-		usleep(WAIT_INTERVALL * 1000);
+		usleep(WAIT_INTERVALL);
 		pthread_mutex_lock(&philo->is_running_mutex);
 		if (philo->is_running == false)
 		{
