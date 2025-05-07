@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:29:59 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/06 16:14:24 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:10:13 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static void	handle_death(t_philo *philo, int i)
 
 void	monitoring(t_philo *philo)
 {
-	int	i;
+	struct timeval	current_time;
+	int				i;
 
 	while (true)
 	{
@@ -38,12 +39,13 @@ void	monitoring(t_philo *philo)
 			pthread_mutex_unlock(&philo->is_running_mutex);
 			return ;
 		}
+		gettimeofday(&current_time, NULL);
 		i = 0;
 		while (i < philo->number_philos)
 		{
 			pthread_mutex_lock(&philo->philosophers[i].last_meal_time_mutex);
-			if (get_time_diff(&philo->start_time,
-					&philo->philosophers[i].last_meal) > philo->time_to_die)
+			if (get_time_diff(&philo->philosophers[i].last_meal,
+					&current_time) > philo->time_to_die)
 				return (handle_death(philo, i));
 			pthread_mutex_unlock(&philo->philosophers[i].last_meal_time_mutex);
 			i++;

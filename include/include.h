@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:12 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/06 16:24:41 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:40:55 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,5 @@ void					monitoring(t_philo *philo);
 void					take_fork(t_philosopher *philosopher, t_fork *fork);
 void					think_before_take_fork(t_philosopher *philosopher);
 void					release_fork(t_fork *fork);
-void					no_fork_found(t_philosopher *philosopher);
 
 #endif

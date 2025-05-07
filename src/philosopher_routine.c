@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:27:37 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/06 16:30:38 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:28:06 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,9 @@ void	philosopher_routine(t_philosopher *philosopher)
 {
 	if (philosopher->philo->number_philos == 1)
 	{
-		ft_putstr("1 has taken a fork\n");
-		no_fork_found(philosopher);
+		think_before_take_fork(philosopher);
+		philosopher_wait(philosopher, philosopher->philo->time_to_die);
+		philosopher_wait(philosopher, philosopher->philo->time_to_die);
 		return ;
 	}
 	pthread_mutex_lock(&philosopher->philo->is_running_mutex);
@@ -121,6 +122,7 @@ void	philosopher_routine(t_philosopher *philosopher)
 		pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
 		philosopher_eat(philosopher);
 		philosopher_sleep(philosopher);
+		pthread_mutex_lock(&philosopher->philo->is_running_mutex);
 	}
-	pthread_mutex_lock(&philosopher->philo->is_running_mutex);
+	pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:33:03 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/06 16:15:04 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:03:29 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ bool	philosopher_finished(t_philosopher *philosopher)
 	return (false);
 }
 
-void	philosopher_wait(t_philosopher *philosopher, int time)
+void	philosopher_wait(t_philosopher *philosopher, int time_in_ms)
 {
-	int	time_waited;
-	int	remaining_time;
+	long long	time;
+	long long	time_waited;
+	long long	remaining_time;
 
+	time = time_in_ms * 1000;
 	time_waited = 0;
 	while (time_waited < time)
 	{

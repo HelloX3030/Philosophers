@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:59:51 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/06 16:22:23 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:53:14 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,4 @@ void	release_fork(t_fork *fork)
 	pthread_mutex_lock(&fork->mutex);
 	fork->is_taken = false;
 	pthread_mutex_unlock(&fork->mutex);
-}
-
-void	no_fork_found(t_philosopher *philosopher)
-{
-	think_before_take_fork(philosopher);
-	philosopher_wait(philosopher, philosopher->philo->time_to_die);
-	philosopher_wait(philosopher, philosopher->philo->time_to_die);
 }
