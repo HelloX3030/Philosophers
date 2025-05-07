@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:12 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/07 15:02:06 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/07 16:31:08 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define WAIT_INTERVALL 1000
+# define WAIT_MONITORING 5000
+# define WAIT_PHILOSOPHER 5000
+# define WAIT_USLEEP 50
 
 // Number Utils
 int						ft_atoi(const char *str);
@@ -59,14 +61,20 @@ typedef struct s_philo
 	pthread_t			monitoring_thread;
 }						t_philo;
 
+// wait Functions
+void					custom_usleep(long long time_in_ms);
+long long				get_elapsed_time(struct timeval *start_time);
+long long				get_time_diff_ms(struct timeval *start_time,
+							struct timeval *end_time);
+long long				get_time_diff_micro(struct timeval *start_time,
+							struct timeval *end_time);
+
+// philo Functions
 int						init_philo(t_philo *philo, int argc, char **argv);
 int						init_philosophers(t_philo *philo);
 void					free_philo(t_philo *philo);
 void					philosopher_wait(t_philosopher *philosopher, int time);
 void					philosopher_routine(t_philosopher *philosopher);
-long long				get_elapsed_time(struct timeval *start_time);
-long long				get_time_diff(struct timeval *start_time,
-							struct timeval *end_time);
 void					monitoring(t_philo *philo);
 
 // Philosopher Routine Utils

@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:29:59 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/07 15:00:58 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/07 16:32:11 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	monitoring(t_philo *philo)
 	while (philo->is_running == true)
 	{
 		pthread_mutex_unlock(&philo->is_running_mutex);
-		usleep(WAIT_INTERVALL);
+		custom_usleep(WAIT_MONITORING);
 		gettimeofday(&current_time, NULL);
 		i = 0;
 		while (i < philo->number_philos)
 		{
 			pthread_mutex_lock(&philo->philosophers[i].last_meal_time_mutex);
-			if (get_time_diff(&philo->philosophers[i].last_meal,
+			if (get_time_diff_ms(&philo->philosophers[i].last_meal,
 					&current_time) > philo->time_to_die)
 				return (handle_death(philo, i));
 			pthread_mutex_unlock(&philo->philosophers[i].last_meal_time_mutex);
