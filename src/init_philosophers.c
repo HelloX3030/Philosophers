@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:50:14 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/05 14:58:06 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/07 16:08:23 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 static void	clear_philosophers(t_philo *philo, int i)
 {
 	while (i > 0)
-	{
-		pthread_mutex_destroy(&philo->philosophers[i - 1].last_meal_time_mutex);
-		i--;
-	}
+		pthread_mutex_destroy(&philo->philosophers[i--
+			- 1].last_meal_time_mutex);
 }
 
 static int	init_philosopher(t_philo *philo)
@@ -39,12 +37,12 @@ static int	init_philosopher(t_philo *philo)
 		philo->philosophers[i].number_of_meals = 0;
 		philo->philosophers[i].last_meal = philo->start_time;
 		philo->philosophers[i].left_fork = &philo->forks[i];
-		if (i == philo->number_philos - 1)
-			philo->philosophers[i].right_fork = &philo->forks[0];
-		else if (philo->number_philos > 1)
-			philo->philosophers[i].right_fork = &philo->forks[i + 1];
-		else
+		if (philo->number_philos == 1)
 			philo->philosophers[i].right_fork = NULL;
+		else if (i == philo->number_philos - 1)
+			philo->philosophers[i].right_fork = &philo->forks[0];
+		else
+			philo->philosophers[i].right_fork = &philo->forks[i + 1];
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -79,23 +77,19 @@ static int	init_forks(t_philo *philo)
 {
 	int	i;
 
-	philo->forks = malloc(sizeof(t_fork) * philo->number_philos);
+	philo->forks = malloc(sizeof(pthread_mutex_t) * philo->number_philos);
 	if (!philo->forks)
 		return (EXIT_FAILURE);
 	i = 0;
 	while (i < philo->number_philos)
 	{
-		if (pthread_mutex_init(&philo->forks[i].mutex, NULL) != 0)
+		if (pthread_mutex_init(&philo->forks[i], NULL) != 0)
 		{
 			while (i > 0)
-			{
-				pthread_mutex_destroy(&philo->forks[i - 1].mutex);
-				i--;
-			}
+				pthread_mutex_destroy(&philo->forks[i-- - 1]);
 			free(philo->forks);
 			return (EXIT_FAILURE);
 		}
-		philo->forks[i].is_taken = false;
 		i++;
 	}
 	return (EXIT_SUCCESS);

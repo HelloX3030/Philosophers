@@ -6,21 +6,11 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:33:03 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/06 17:03:29 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/07 15:53:14 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
-
-bool	philosopher_finished(t_philosopher *philosopher)
-{
-	if (philosopher->philo->number_of_meals != -1
-		&& philosopher->number_of_meals >= philosopher->philo->number_of_meals)
-		return (true);
-	if (philosopher->philo->is_running == false)
-		return (true);
-	return (false);
-}
 
 void	philosopher_wait(t_philosopher *philosopher, int time_in_ms)
 {
@@ -39,7 +29,7 @@ void	philosopher_wait(t_philosopher *philosopher, int time_in_ms)
 			usleep(WAIT_INTERVALL);
 		time_waited += WAIT_INTERVALL;
 		pthread_mutex_lock(&philosopher->philo->is_running_mutex);
-		if (philosopher_finished(philosopher))
+		if (philosopher->philo->is_running == false)
 		{
 			pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
 			break ;
