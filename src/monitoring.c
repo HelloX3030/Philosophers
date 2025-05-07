@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:29:59 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/07 16:32:11 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/07 16:37:09 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	handle_death(t_philo *philo, int i)
 {
-	pthread_mutex_unlock(&philo->philosophers[i].last_meal_time_mutex);
 	pthread_mutex_lock(&philo->is_running_mutex);
 	philo->is_running = false;
 	pthread_mutex_lock(&philo->write_mutex);
@@ -22,6 +21,7 @@ static void	handle_death(t_philo *philo, int i)
 		philo->philosophers[i].id);
 	pthread_mutex_unlock(&philo->write_mutex);
 	pthread_mutex_unlock(&philo->is_running_mutex);
+	pthread_mutex_unlock(&philo->philosophers[i].last_meal_time_mutex);
 }
 
 void	monitoring(t_philo *philo)

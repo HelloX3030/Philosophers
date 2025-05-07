@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:27:37 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/07 16:12:30 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/07 16:54:52 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static void	think_until_fork(t_philosopher *philosopher, pthread_mutex_t *fork)
 
 static void	handle_eat(t_philosopher *philosopher)
 {
-	print_message(philosopher, "is eating");
 	pthread_mutex_lock(&philosopher->last_meal_time_mutex);
 	gettimeofday(&philosopher->last_meal, NULL);
 	pthread_mutex_unlock(&philosopher->last_meal_time_mutex);
+	print_message(philosopher, "is eating");
 	philosopher_wait(philosopher, philosopher->philo->time_to_eat);
 	pthread_mutex_unlock(philosopher->left_fork);
 	pthread_mutex_unlock(philosopher->right_fork);
@@ -68,13 +68,16 @@ static void	philosopher_sleep(t_philosopher *philosopher)
 
 void	philosopher_routine(t_philosopher *philosopher)
 {
-	pthread_mutex_lock(&philosopher->philo->is_running_mutex);
-	while (philosopher->philo->is_running)
+	while (1)
 	{
+		pthread_mutex_lock(&philosopher->philo->is_running_mutex);
+		if (!philosopher->philo->is_running)
+		{
+			pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
+			break ;
+		}
 		pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
 		philosopher_eat(philosopher);
 		philosopher_sleep(philosopher);
-		pthread_mutex_lock(&philosopher->philo->is_running_mutex);
 	}
-	pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
 }
