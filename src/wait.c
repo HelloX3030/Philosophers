@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:33:03 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/07 16:58:44 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/07 18:12:24 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	philosopher_wait(t_philosopher *philosopher, int time_in_ms)
 			break ;
 		}
 		pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
+		gettimeofday(&current_time, NULL);
 	}
 }
 

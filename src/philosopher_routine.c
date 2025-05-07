@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:27:37 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/07 16:54:52 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/07 18:11:41 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static void	philosopher_sleep(t_philosopher *philosopher)
 
 void	philosopher_routine(t_philosopher *philosopher)
 {
+	if (philosopher->id % 2 == 0)
+		custom_usleep(philosopher->philo->time_to_eat / 2);
 	while (1)
 	{
 		pthread_mutex_lock(&philosopher->philo->is_running_mutex);
