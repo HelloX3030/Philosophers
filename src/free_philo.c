@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   free_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:09:03 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/07 14:20:25 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/09 16:40:16 by hello_x          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 
-void	free_philo(t_philo *philo)
+void free_philo(t_philo *philo)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (i < philo->number_philos)
-		pthread_mutex_destroy(&philo->philosophers[i++].last_meal_time_mutex);
+		pthread_mutex_destroy(&philo->philosophers[i++].data_mutex);
 	free(philo->philosophers);
 	i = 0;
 	while (i < philo->number_philos)
