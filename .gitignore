@@ -8,6 +8,7 @@
 *.obj
 *.elf
 philo
+!/philo/
 
 # Linker output
 *.ilk
