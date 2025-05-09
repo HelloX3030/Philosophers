@@ -9,6 +9,8 @@
 *.elf
 philo
 !/philo/
+philo_bonus
+!/philo_bonus/
 
 # Linker output
 *.ilk
