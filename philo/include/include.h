@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:12 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/12 16:25:44 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/12 17:12:12 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <unistd.h>
 
 # define WAIT_MONITORING 9000
-# define WAIT_PHILOSOPHER 1000
+# define WAIT_PHILOSOPHER 100
 # define WAIT_USLEEP 50
 
 // Number Utils
