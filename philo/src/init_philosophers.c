@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   init_philosophers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:50:14 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/09 16:40:32 by hello_x          ###   ########.fr       */
+/*   Updated: 2025/05/12 16:42:07 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 
-static void clear_philosophers(t_philo *philo, int i)
+static void	clear_philosophers(t_philo *philo, int i)
 {
 	while (i > 0)
 		pthread_mutex_destroy(&philo->philosophers[i-- - 1].data_mutex);
 }
 
-static int init_philosopher(t_philo *philo)
+static int	init_philosopher(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	philo->philosophers = malloc(sizeof(t_philosopher) * philo->number_philos);
 	if (!philo->philosophers)
@@ -28,8 +28,7 @@ static int init_philosopher(t_philo *philo)
 	i = 0;
 	while (i < philo->number_philos)
 	{
-		if (pthread_mutex_init(&philo->philosophers[i].data_mutex,
-							   NULL) != 0)
+		if (pthread_mutex_init(&philo->philosophers[i].data_mutex, NULL) != 0)
 			return (clear_philosophers(philo, i), EXIT_FAILURE);
 		philo->philosophers[i].philo = philo;
 		philo->philosophers[i].id = i + 1;
@@ -47,15 +46,15 @@ static int init_philosopher(t_philo *philo)
 	return (EXIT_SUCCESS);
 }
 
-static int create_threads(t_philo *philo)
+static int	create_threads(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < philo->number_philos)
 	{
 		if (pthread_create(&philo->philosophers[i].thread, NULL,
-						   (void *)philosopher_routine, philo->philosophers + i) != 0)
+				(void *)philosopher_routine, philo->philosophers + i) != 0)
 		{
 			pthread_mutex_lock(&philo->is_running_mutex);
 			philo->is_running = false;
@@ -72,9 +71,9 @@ static int create_threads(t_philo *philo)
 	return (EXIT_SUCCESS);
 }
 
-static int init_forks(t_philo *philo)
+static int	init_forks(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	philo->forks = malloc(sizeof(pthread_mutex_t) * philo->number_philos);
 	if (!philo->forks)
@@ -94,7 +93,7 @@ static int init_forks(t_philo *philo)
 	return (EXIT_SUCCESS);
 }
 
-int init_philosophers(t_philo *philo)
+int	init_philosophers(t_philo *philo)
 {
 	if (pthread_mutex_init(&philo->write_mutex, NULL) != 0)
 		return (EXIT_FAILURE);
@@ -102,7 +101,7 @@ int init_philosophers(t_philo *philo)
 		return (pthread_mutex_destroy(&philo->write_mutex), EXIT_FAILURE);
 	if (init_forks(philo) != EXIT_SUCCESS)
 		return (pthread_mutex_destroy(&philo->write_mutex),
-				pthread_mutex_destroy(&philo->is_running_mutex), EXIT_FAILURE);
+			pthread_mutex_destroy(&philo->is_running_mutex), EXIT_FAILURE);
 	gettimeofday(&philo->start_time, NULL);
 	if (init_philosopher(philo) != EXIT_SUCCESS)
 	{
@@ -111,7 +110,7 @@ int init_philosophers(t_philo *philo)
 		return (EXIT_FAILURE);
 	}
 	if (pthread_create(&philo->monitoring_thread, NULL, (void *)monitoring,
-					   philo) != 0)
+			philo) != 0)
 	{
 		pthread_mutex_destroy(&philo->write_mutex);
 		pthread_mutex_destroy(&philo->is_running_mutex);
