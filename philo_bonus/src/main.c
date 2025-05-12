@@ -6,11 +6,11 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:46 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/05 11:25:02 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/12 18:24:16 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include.h"
+#include "../include/include.h"
 
 int	main(int argc, char **argv)
 {

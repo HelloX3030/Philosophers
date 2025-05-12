@@ -6,11 +6,11 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:33:03 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/07 18:12:24 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/12 18:40:55 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include.h"
+#include "../include/include.h"
 
 void	philosopher_wait(t_philosopher *philosopher, int time_in_ms)
 {
@@ -22,13 +22,13 @@ void	philosopher_wait(t_philosopher *philosopher, int time_in_ms)
 	while (get_time_diff_ms(&start_time, &current_time) < time_in_ms)
 	{
 		custom_usleep(WAIT_PHILOSOPHER);
-		pthread_mutex_lock(&philosopher->philo->is_running_mutex);
-		if (!philosopher->philo->is_running)
+		sem_wait(philosopher->philo->running_mutex);
+		if (!philosopher->philo->running)
 		{
-			pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
+			sem_post(philosopher->philo->running_mutex);
 			break ;
 		}
-		pthread_mutex_unlock(&philosopher->philo->is_running_mutex);
+		sem_post(philosopher->philo->running_mutex);
 		gettimeofday(&current_time, NULL);
 	}
 }

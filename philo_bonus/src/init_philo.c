@@ -6,11 +6,11 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:58:30 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/07 14:12:21 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/12 18:24:00 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include.h"
+#include "../include/include.h"
 
 static int	check_limits(t_philo *philo)
 {
@@ -76,7 +76,7 @@ int	init_philo(t_philo *philo, int argc, char **argv)
 		printf("<time_to_eat> <time_to_sleep> [number_of_meals]\n");
 		return (EXIT_FAILURE);
 	}
-	philo->is_running = true;
+	philo->running = true;
 	if (init_values(philo, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (argc == 6)
