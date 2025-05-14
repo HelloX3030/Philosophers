@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:12 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/12 18:44:18 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/14 14:13:49 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 # define WAIT_USLEEP 50
 
 // semaphore names
-# define SEM_WRITE "/philo/write_mutex"
-# define SEM_RUNNING "/philo/is_running_mutex"
-# define SEM_FORKS "/philo/forks"
-# define SEM_PHILOSOPHER "/philo/philosopher"
+# define SEM_WRITE "/philo_write_mutex"
+# define SEM_RUNNING "/philo_is_running_mutex"
+# define SEM_FORKS "/philo_forks"
+# define SEM_PHILOSOPHER "/philo_philosopher"
 
 // Number Utils
 int						ft_atoi(const char *str);

@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:50:14 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/12 18:31:10 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/14 14:13:08 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	cleanup_philos(t_philo *philo, int i)
 	while (i > 0)
 	{
 		i--;
-		sem_unlink(philo->philosophers[i - 1].data_mutex_name);
-		free(philo->philosophers[i - 1].data_mutex_name);
+		sem_unlink(philo->philosophers[i].data_mutex_name);
+		free(philo->philosophers[i].data_mutex_name);
 	}
 	return (EXIT_FAILURE);
 }
@@ -36,6 +36,7 @@ static int	create_philo_mutex(t_philo *philo, int i)
 		return (free(philo->philosophers[i].data_mutex_name),
 			cleanup_philos(philo, i), EXIT_FAILURE);
 	tmp = philo->philosophers[i].data_mutex_name;
+	sem_unlink(tmp);
 	philo->philosophers[i].data_mutex = sem_open(tmp, O_CREAT | O_EXCL, 0644,
 			1);
 	if (philo->philosophers[i].data_mutex == SEM_FAILED)
@@ -57,7 +58,7 @@ static int	init_philosopher(t_philo *philo)
 	while (i < philo->number_philos)
 	{
 		if (create_philo_mutex(philo, i) != EXIT_SUCCESS)
-			return (EXIT_FAILURE);
+			return (free(philo->philosophers), EXIT_FAILURE);
 		philo->philosophers[i].philo = philo;
 		philo->philosophers[i].id = i + 1;
 		philo->philosophers[i].number_of_meals = 0;
@@ -94,25 +95,26 @@ static int	create_threads(t_philo *philo)
 
 int	init_philosophers(t_philo *philo)
 {
+	sem_unlink(SEM_WRITE);
 	philo->write_mutex = sem_open(SEM_WRITE, O_CREAT | O_EXCL, 0644, 1);
 	if (philo->write_mutex == SEM_FAILED)
 		return (EXIT_FAILURE);
+	sem_unlink(SEM_RUNNING);
 	philo->running_mutex = sem_open(SEM_RUNNING, O_CREAT | O_EXCL, 0644, 1);
 	if (philo->running_mutex == SEM_FAILED)
-		return (sem_close(philo->write_mutex), EXIT_FAILURE);
+		return (sem_unlink(SEM_WRITE), EXIT_FAILURE);
+	sem_unlink(SEM_FORKS);
 	philo->forks = sem_open(SEM_FORKS, O_CREAT | O_EXCL, 0644,
 			philo->number_philos);
 	if (philo->forks == SEM_FAILED)
-		return (sem_close(philo->write_mutex), sem_close(philo->running_mutex),
-			EXIT_FAILURE);
+		return (sem_unlink(SEM_WRITE), sem_unlink(SEM_RUNNING), EXIT_FAILURE);
 	gettimeofday(&philo->start_time, NULL);
 	if (init_philosopher(philo) != EXIT_SUCCESS)
-		return (sem_close(philo->forks), sem_close(philo->write_mutex),
-			sem_close(philo->running_mutex), EXIT_FAILURE);
+		return (sem_unlink(SEM_FORKS), sem_unlink(SEM_WRITE),
+			sem_unlink(SEM_RUNNING), EXIT_FAILURE);
 	if (pthread_create(&philo->monitoring_thread, NULL, (void *)monitoring,
 			philo) != 0)
-		return (sem_close(philo->write_mutex), sem_close(philo->running_mutex),
-			EXIT_FAILURE);
+		return (sem_unlink(SEM_WRITE), sem_unlink(SEM_RUNNING), EXIT_FAILURE);
 	if (create_threads(philo) != EXIT_SUCCESS)
 		return (free_philo(philo), EXIT_FAILURE);
 	return (EXIT_SUCCESS);

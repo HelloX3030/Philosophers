@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:27:37 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/12 18:38:19 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/14 14:22:12 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	handle_eat(t_philosopher *philosopher)
 	philosopher_wait(philosopher, philosopher->philo->time_to_eat);
 	sem_post(philosopher->philo->forks);
 	sem_post(philosopher->philo->forks);
+	sem_wait(philosopher->data_mutex);
 	philosopher->number_of_meals++;
 	sem_post(philosopher->data_mutex);
 }
@@ -53,8 +54,6 @@ void	philosopher_routine(t_philosopher *philosopher)
 		custom_usleep(philosopher->philo->time_to_eat / 2);
 	while (1)
 	{
-		if (philosopher->id % 2 == 0)
-			custom_usleep(philosopher->philo->time_to_eat / 2);
 		sem_wait(philosopher->philo->running_mutex);
 		if (!philosopher->philo->running)
 		{
