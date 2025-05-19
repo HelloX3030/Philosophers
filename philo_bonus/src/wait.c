@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   wait.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:33:03 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/12 18:40:55 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/19 15:23:21 by hello_x          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/include.h"
 
-void	philosopher_wait(t_philosopher *philosopher, int time_in_ms)
+void philosopher_wait(t_philosopher *philosopher, int time_in_ms)
 {
-	struct timeval	current_time;
-	struct timeval	start_time;
+	struct timeval current_time;
+	struct timeval start_time;
 
 	gettimeofday(&start_time, NULL);
 	gettimeofday(&current_time, NULL);
@@ -26,17 +26,17 @@ void	philosopher_wait(t_philosopher *philosopher, int time_in_ms)
 		if (!philosopher->philo->running)
 		{
 			sem_post(philosopher->philo->running_mutex);
-			break ;
+			break;
 		}
 		sem_post(philosopher->philo->running_mutex);
 		gettimeofday(&current_time, NULL);
 	}
 }
 
-long long	get_elapsed_time(struct timeval *start_time)
+long long get_elapsed_time(struct timeval *start_time)
 {
-	struct timeval	current_time;
-	long long		elapsed_time;
+	struct timeval current_time;
+	long long elapsed_time;
 
 	gettimeofday(&current_time, NULL);
 	elapsed_time = (current_time.tv_sec - start_time->tv_sec) * 1000;
@@ -44,12 +44,13 @@ long long	get_elapsed_time(struct timeval *start_time)
 	return (elapsed_time);
 }
 
-void	custom_usleep(long long time)
+void custom_usleep(long long time)
 {
-	struct timeval	start_time;
-	struct timeval	current_time;
+	struct timeval start_time;
+	struct timeval current_time;
 
 	gettimeofday(&start_time, NULL);
+	gettimeofday(&current_time, NULL);
 	while (get_time_diff_micro(&start_time, &current_time) < time)
 	{
 		gettimeofday(&current_time, NULL);
@@ -57,20 +58,19 @@ void	custom_usleep(long long time)
 	}
 }
 
-long long	get_time_diff_ms(struct timeval *start_time,
-		struct timeval *end_time)
+long long get_time_diff_ms(struct timeval *start_time,
+						   struct timeval *end_time)
 {
-	long long	sec_diff;
-	long long	usec_diff;
+	long long sec_diff;
+	long long usec_diff;
 
 	sec_diff = end_time->tv_sec - start_time->tv_sec;
 	usec_diff = end_time->tv_usec - start_time->tv_usec;
 	return (sec_diff * 1000 + usec_diff / 1000);
 }
 
-long long	get_time_diff_micro(struct timeval *start_time,
-		struct timeval *end_time)
+long long get_time_diff_micro(struct timeval *start_time,
+							  struct timeval *end_time)
 {
-	return ((end_time->tv_sec - start_time->tv_sec) * 1000000
-		+ (end_time->tv_usec - start_time->tv_usec));
+	return ((end_time->tv_sec - start_time->tv_sec) * 1000000 + (end_time->tv_usec - start_time->tv_usec));
 }

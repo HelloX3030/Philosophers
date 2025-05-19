@@ -3,28 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   free_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:09:03 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/14 14:11:42 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/05/19 15:38:38 by hello_x          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/include.h"
 
-void	free_philo(t_philo *philo)
+void free_philo(t_philo *philo)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (i < philo->number_philos)
 	{
+		sem_close(philo->philosophers[i].data_mutex);
 		sem_unlink(philo->philosophers[i].data_mutex_name);
 		free(philo->philosophers[i].data_mutex_name);
 		i++;
 	}
 	free(philo->philosophers);
+	sem_close(philo->write_mutex);
 	sem_unlink(SEM_WRITE);
+	sem_close(philo->running_mutex);
 	sem_unlink(SEM_RUNNING);
+	sem_close(philo->forks);
 	sem_unlink(SEM_FORKS);
 }
