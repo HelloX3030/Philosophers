@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:51:46 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/19 13:47:17 by hello_x          ###   ########.fr       */
+/*   Updated: 2025/05/20 13:39:01 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/include.h"
 
-static int get_int_len(int n)
+static int	get_int_len(int n)
 {
-	int len;
+	int	len;
 
 	if (n == 0)
 		return (1);
@@ -30,11 +30,11 @@ static int get_int_len(int n)
 	return (len);
 }
 
-char *ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-	const int int_len = get_int_len(n);
-	char *str;
-	int i;
+	const int	int_len = get_int_len(n);
+	char		*str;
+	int			i;
 
 	if (n == INT_MIN)
 		return (ft_strdup("-2147483648"));
@@ -58,13 +58,13 @@ char *ft_itoa(int n)
 	return (str);
 }
 
-char *ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	const int len1 = ft_strlen(s1);
-	const int len2 = ft_strlen(s2);
-	char *new_str;
-	int i;
-	int j;
+	const int	len1 = ft_strlen(s1);
+	const int	len2 = ft_strlen(s2);
+	char		*new_str;
+	int			i;
+	int			j;
 
 	if (!s1 && s2)
 		return (ft_strdup(s2));
@@ -83,11 +83,11 @@ char *ft_strjoin(char const *s1, char const *s2)
 	return (new_str);
 }
 
-char *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-	char *new_str;
-	const int s_len = ft_strlen(s);
-	int i;
+	char		*new_str;
+	const int	s_len = ft_strlen(s);
+	int			i;
 
 	new_str = malloc(s_len + 1);
 	if (new_str == NULL)
@@ -102,9 +102,9 @@ char *ft_strdup(const char *s)
 	return (new_str);
 }
 
-size_t ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	int i;
+	int	i;
 
 	if (!s)
 		return (0);

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   free_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:09:03 by hello_x           #+#    #+#             */
-/*   Updated: 2025/05/19 15:38:38 by hello_x          ###   ########.fr       */
+/*   Updated: 2025/05/20 13:39:17 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/include.h"
 
-void free_philo(t_philo *philo)
+void	free_philo(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < philo->number_philos)

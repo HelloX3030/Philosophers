@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hello_x <hello_x@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:38:46 by lseeger           #+#    #+#             */
-/*   Updated: 2025/05/19 15:30:29 by hello_x          ###   ########.fr       */
+/*   Updated: 2025/05/20 13:39:11 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/include.h"
 
-static void cleanup_semaphores(void)
+static void	cleanup_semaphores(void)
 {
 	sem_unlink(SEM_WRITE);
 	sem_unlink(SEM_RUNNING);
 	sem_unlink(SEM_FORKS);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int i;
-	t_philo philo;
+	int		i;
+	t_philo	philo;
 
 	cleanup_semaphores();
 	if (init_philo(&philo, argc, argv) == EXIT_FAILURE)
